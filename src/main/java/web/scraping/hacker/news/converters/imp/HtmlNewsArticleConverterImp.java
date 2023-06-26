@@ -2,6 +2,7 @@ package web.scraping.hacker.news.converters.imp;
 
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import org.apache.commons.lang3.RegExUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.w3c.dom.Node;
 import web.scraping.hacker.news.converters.HtmlNewsArticleConverter;
@@ -9,6 +10,7 @@ import web.scraping.hacker.news.domain.NewsArticle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -46,14 +48,15 @@ public class HtmlNewsArticleConverterImp implements HtmlNewsArticleConverter {
     }
 
     protected String getRowTitle(final DomNode row) {
-        return row.querySelector(".titleline > a").asNormalizedText();
+        final DomNode titleNode = row.querySelector(".titleline > a");
+        return Objects.nonNull(titleNode) ? titleNode.asNormalizedText() : StringUtils.EMPTY;
     }
 
     protected Optional<Integer> getNumberFromNode(final DomNode node, final String cssSelector) {
         Integer number = null;
         final DomNode selectedNode = node.querySelector(cssSelector);
 
-        if (selectedNode != null) {
+        if (Objects.nonNull(selectedNode)) {
             number = NumberUtils.toInt(RegExUtils.removeAll(selectedNode.asNormalizedText(), NOT_NUMBER_PATTERN));
         }
 
