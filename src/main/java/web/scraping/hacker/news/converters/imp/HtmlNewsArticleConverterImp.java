@@ -17,7 +17,7 @@ public class HtmlNewsArticleConverterImp implements HtmlNewsArticleConverter {
     private static final Pattern NOT_NUMBER_PATTERN = Pattern.compile("\\D");
 
     @Override
-    public List<NewsArticle> convertAll(List<DomNode> source) {
+    public List<NewsArticle> convertAll(final List<DomNode> source) {
         final int initialCapacity = source.size() / 2;
         final List<NewsArticle> articles = new ArrayList<>(initialCapacity);
 
@@ -29,13 +29,13 @@ public class HtmlNewsArticleConverterImp implements HtmlNewsArticleConverter {
             }
 
             final DomNode nextRow = row.getNextSibling();
-            articles.add(convertOne(row, nextRow));
+            articles.add(extractNewsArticleFromAdjacentRows(row, nextRow));
         }
 
         return articles;
     }
 
-    protected NewsArticle convertOne(final DomNode row, final DomNode nextRow) {
+    protected NewsArticle extractNewsArticleFromAdjacentRows(final DomNode row, final DomNode nextRow) {
         final NewsArticle newsArticle = new NewsArticle();
         newsArticle.setTitle(getRowTitle(row));
         getNumberFromNode(row, "span.rank").ifPresent(newsArticle::setIndex);
