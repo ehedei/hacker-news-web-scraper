@@ -12,6 +12,9 @@ import web.scraping.hacker.news.services.ScrapingService;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The ScrapingServiceImp class implements the ScrapingService interface and provides methods for scraping news articles from a URL.
+ */
 public class ScrapingServiceImp implements ScrapingService {
 
     private final WebClient webClient;
@@ -24,6 +27,13 @@ public class ScrapingServiceImp implements ScrapingService {
         this.htmlNewsArticleConverter = htmlNewsArticleConverter;
     }
 
+    /**
+     * Retrieves a list of NewsArticle objects by scraping the news articles from the specified URL.
+     *
+     * @param url the URL to scrape the news articles from
+     * @return a list of NewsArticle objects
+     * @throws IOException if an I/O error occurs while fetching the web page
+     */
     @Override
     public List<NewsArticle> getNewsFromUrl(final String url) throws IOException {
         final HtmlPage page = this.webClient.getPage(url);

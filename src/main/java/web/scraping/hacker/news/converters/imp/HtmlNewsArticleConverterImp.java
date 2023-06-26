@@ -14,10 +14,20 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+/**
+ * This class implements the HtmlNewsArticleConverter interface and provides methods to convert a list of DomNodes
+ * into a list of NewsArticle objects.
+ */
 public class HtmlNewsArticleConverterImp implements HtmlNewsArticleConverter {
 
     private static final Pattern NOT_NUMBER_PATTERN = Pattern.compile("\\D");
 
+    /**
+     * Converts a list of DomNodes into a list of NewsArticle objects.
+     *
+     * @param source the list of DomNodes to convert
+     * @return a list of NewsArticle objects
+     */
     @Override
     public List<NewsArticle> convertAll(final List<DomNode> source) {
         final int initialCapacity = source.size() / 2;
@@ -37,6 +47,13 @@ public class HtmlNewsArticleConverterImp implements HtmlNewsArticleConverter {
         return articles;
     }
 
+    /**
+     * Extracts a NewsArticle object from the current row and the adjacent row.
+     *
+     * @param row     the current row
+     * @param nextRow the adjacent row
+     * @return a NewsArticle object
+     */
     protected NewsArticle extractNewsArticleFromAdjacentRows(final DomNode row, final DomNode nextRow) {
         final NewsArticle newsArticle = new NewsArticle();
         newsArticle.setTitle(getRowTitle(row));
@@ -47,11 +64,24 @@ public class HtmlNewsArticleConverterImp implements HtmlNewsArticleConverter {
         return newsArticle;
     }
 
+    /**
+     * Retrieves the title from the given row.
+     *
+     * @param row the row containing the title
+     * @return the title as a string
+     */
     protected String getRowTitle(final DomNode row) {
         final DomNode titleNode = row.querySelector(".titleline > a");
         return Objects.nonNull(titleNode) ? titleNode.asNormalizedText() : StringUtils.EMPTY;
     }
 
+    /**
+     * Retrieves a number from the specified node using the given CSS selector.
+     *
+     * @param node        the node to search within
+     * @param cssSelector the CSS selector to find the target node
+     * @return an Optional containing the extracted number, or an empty Optional if the number could not be found
+     */
     protected Optional<Integer> getNumberFromNode(final DomNode node, final String cssSelector) {
         Integer number = null;
         final DomNode selectedNode = node.querySelector(cssSelector);
