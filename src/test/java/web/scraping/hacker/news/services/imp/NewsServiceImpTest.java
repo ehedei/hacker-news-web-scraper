@@ -17,11 +17,7 @@ class NewsServiceImpTest {
     private static final int MIN_NUMBER_ARTICLES = 2;
     private static final Random random = new Random();
 
-    private List<NewsArticle> shortNews;
-    private List<NewsArticle> longNews;
-
     private List<NewsArticle> allNews;
-
     private int numberOfShortNews;
     private int numberOfLongNews;
 
@@ -30,7 +26,7 @@ class NewsServiceImpTest {
         numberOfLongNews = getRandomNumber();
         numberOfShortNews = getRandomNumber();
 
-        shortNews = new ArrayList<>(numberOfShortNews);
+        final List<NewsArticle> shortNews = new ArrayList<>(numberOfShortNews);
         for (int i = 1; i <= numberOfShortNews; i++) {
             final NewsArticle newsArticle = new NewsArticle();
             newsArticle.setIndex(i);
@@ -40,7 +36,7 @@ class NewsServiceImpTest {
             shortNews.add(newsArticle);
         }
 
-        longNews = new ArrayList<>(numberOfLongNews);
+        final List<NewsArticle> longNews = new ArrayList<>(numberOfLongNews);
         for (int i = 1; i <= numberOfLongNews; i++) {
             final NewsArticle newsArticle = new NewsArticle();
             newsArticle.setIndex(MAX_NUMBER_ARTICLES + i);
@@ -56,7 +52,7 @@ class NewsServiceImpTest {
     }
 
     @Test
-    @DisplayName("filterNewsByLongTitlesSortedByComments should returns empty list if source is empty or null")
+    @DisplayName("filterNewsByLongTitlesSortedByComments should return empty list if source is empty or null")
     void filterNewsByLongTitlesSortedByCommentsIsEmpty() {
         final NewsServiceImp newsServiceImp = new NewsServiceImp();
         assertTrue(newsServiceImp.filterNewsByLongTitlesSortedByComments(null).isEmpty(),

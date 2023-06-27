@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.apache.commons.lang3.StringUtils;
 import web.scraping.hacker.news.converters.HtmlNewsArticleConverter;
 import web.scraping.hacker.news.domain.NewsArticle;
 import web.scraping.hacker.news.services.ScrapingService;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class ScrapingServiceImp implements ScrapingService {
 
-    private final WebClient webClient;
+    private WebClient webClient;
     private final HtmlNewsArticleConverter htmlNewsArticleConverter;
 
     public ScrapingServiceImp(final HtmlNewsArticleConverter htmlNewsArticleConverter) {
@@ -36,9 +37,17 @@ public class ScrapingServiceImp implements ScrapingService {
      */
     @Override
     public List<NewsArticle> getNewsFromUrl(final String url) throws IOException {
-        final HtmlPage page = this.webClient.getPage(url);
+        final HtmlPage page = this.webClient.getPage(StringUtils.defaultIfBlank(url, StringUtils.EMPTY));
         final DomNodeList<DomNode> rows = page.querySelectorAll("tr.athing, tr.athing + tr");
 
         return this.htmlNewsArticleConverter.convertAll(rows);
+    }
+
+    public WebClient getWebClient() {
+        return webClient;
+    }
+
+    public void setWebClient(WebClient webClient) {
+        this.webClient = webClient;
     }
 }
