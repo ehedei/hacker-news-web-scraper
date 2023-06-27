@@ -1,7 +1,7 @@
 plugins {
     id("java")
     application
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.8.22"
 }
 
 group = "web.scraping.hacker.news"
@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation("net.sourceforge.htmlunit:htmlunit:2.70.0")
     implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.apache.commons:commons-collections4:4.4")
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation("org.mockito:mockito-core:4.11.0")

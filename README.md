@@ -6,7 +6,7 @@ This is a Java project that implements a web crawler using scraping techniques t
 
 Before running the project, make sure you have the following installed on your system:
 
-- Java JDK (version 19.0.2)
+- Java JDK (version 17.0.2)
 - Gradle (version 8.0.0)
 
 ## Setup
