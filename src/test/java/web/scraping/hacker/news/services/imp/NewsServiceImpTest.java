@@ -65,7 +65,7 @@ class NewsServiceImpTest {
     @DisplayName("filterNewsByLongTitlesSortedByComments should return list with the right size")
     void filterNewsByLongTitlesSortedByCommentsSize() {
         final NewsServiceImp newsServiceImp = new NewsServiceImp();
-        assertEquals(newsServiceImp.filterNewsByLongTitlesSortedByComments(allNews).size(), numberOfLongNews,
+        assertEquals(numberOfLongNews, newsServiceImp.filterNewsByLongTitlesSortedByComments(allNews).size(),
                 "List should have the correct size");
     }
 
@@ -96,7 +96,7 @@ class NewsServiceImpTest {
     @DisplayName("filterNewsByShortTitlesSortedByPoints should return list with the right size")
     void filterNewsByShortTitlesSortedByPointsSize() {
         final NewsServiceImp newsServiceImp = new NewsServiceImp();
-        assertEquals(newsServiceImp.filterNewsByShortTitlesSortedByPoints(allNews).size(), numberOfShortNews,
+        assertEquals(numberOfShortNews, newsServiceImp.filterNewsByShortTitlesSortedByPoints(allNews).size(),
                 "List should have the correct size");
     }
 

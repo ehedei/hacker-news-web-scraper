@@ -24,7 +24,7 @@ class ScrapingServiceImpTest {
     private static final HtmlNewsArticleConverter htmlNewsArticleConverter = new HtmlNewsArticleConverterImp();
 
     @Test
-    @DisplayName("getNewsFromUrl should a throw IOException when request fails")
+    @DisplayName("getNewsFromUrl should throw IOException when request fails")
     void getNewsFromUrlShouldThrowsException() {
         final String url = "foo";
         final ScrapingServiceImp scrapingService = new ScrapingServiceImp(htmlNewsArticleConverter);

@@ -87,7 +87,8 @@ public class HtmlNewsArticleConverterImp implements HtmlNewsArticleConverter {
         final DomNode selectedNode = node.querySelector(cssSelector);
 
         if (Objects.nonNull(selectedNode)) {
-            number = NumberUtils.toInt(RegExUtils.removeAll(selectedNode.asNormalizedText(), NOT_NUMBER_PATTERN));
+            final String scrapedNumber = RegExUtils.removeAll(selectedNode.asNormalizedText(), NOT_NUMBER_PATTERN);
+            if (StringUtils.isNotBlank(scrapedNumber)) number = NumberUtils.toInt(scrapedNumber);
         }
 
         return Optional.ofNullable(number);
