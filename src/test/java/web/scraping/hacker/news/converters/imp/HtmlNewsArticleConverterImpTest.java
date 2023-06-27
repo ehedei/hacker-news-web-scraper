@@ -5,14 +5,11 @@ import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import web.scraping.hacker.news.converters.HtmlNewsArticleConverter;
 import web.scraping.hacker.news.domain.NewsArticle;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -22,14 +19,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class HtmlNewsArticleConverterImpTest {
     private final Random random = new Random();
 
-    private final String rowPattern = "<tr class=\"athing\" id=\"%d\">\n" +
-            "<td class=\"title\"><span class=\"rank\">%d.</span></td>" +
-            "<td class=\"title\"><span class=\"titleline\"><a>%s</a></td></tr>";
-    private final String adjacentRowPattern = "<tr>\n<td class=\"subtext\">\n" +
-            "<span class=\"subline\"><span class=\"score\" id=\"score_36491704\">%d points</span>\n" +
-            " by <a class=\"hnuser\">User</a>\n <span><a href=\"#\">3 hours ago</a></span>\n" +
-            "<span id=\"unv_36491704\"></span> | <a href=\"#\">hide</a> | <a href=\"#\">%d&nbsp;comments</a></span>\n" +
-            "</td></tr>";
+    private final String rowPattern = """
+            <tr class="athing" id="%d">
+            "<td class="title"><span class="rank">%d.</span></td>"
+            "<td class="title"><span class="titleline"><a>%s</a></td>
+            </tr>""";
+    private final String adjacentRowPattern = """
+            <tr>
+            <td class="subtext">
+            <span class="subline"><span class="score" id="score_36491704">%d points</span>
+             by <a class="hnuser">User</a> <span><a href="#">3 hours ago</a></span>
+            <span id="unv_36491704"></span> | <a href="#">hide</a> | <a href="#">%d&nbsp;comments</a></span>
+            </td></tr>""";
 
     private final WebClient webClient = new WebClient();
     private final HtmlNewsArticleConverterImp htmlNewsArticleConverter = new HtmlNewsArticleConverterImp();
